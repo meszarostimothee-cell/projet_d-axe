@@ -39,7 +39,7 @@ public class PushBackHitbox : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Vérifie si c'est un ennemi
+
         if (collision.CompareTag("Enemy"))
         {
             Rigidbody2D enemyRb = collision.GetComponent<Rigidbody2D>();
@@ -52,6 +52,15 @@ public class PushBackHitbox : MonoBehaviour
                 // Applique la force
                 enemyRb.AddForce(direction * pushForce, ForceMode2D.Impulse);
             }
+
+
+
+
+
         }
     }
 }
+
+
+
+
