@@ -52,11 +52,6 @@ public class PushBackHitbox : MonoBehaviour
                 // Applique la force
                 enemyRb.AddForce(direction * pushForce, ForceMode2D.Impulse);
             }
-
-
-
-
-
         }
     }
 }
