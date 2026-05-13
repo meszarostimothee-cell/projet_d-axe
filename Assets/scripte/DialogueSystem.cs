@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class DialogueSystem : MonoBehaviour
+public class NPCDialogue : MonoBehaviour
 {
     public GameObject dialoguePanel;
     public TextMeshProUGUI dialogueText;
@@ -10,6 +10,8 @@ public class DialogueSystem : MonoBehaviour
     public string[] dialogueLines;
 
     private int currentLine = 0;
+
+    private bool playerNearby = false;
     private bool isDialogueActive = false;
 
     void Start()
@@ -19,21 +21,24 @@ public class DialogueSystem : MonoBehaviour
 
     void Update()
     {
-        // Appuie sur E pour commencer
-        if (Input.GetKeyDown(KeyCode.E) && !isDialogueActive)
+        
+        if (playerNearby && Input.GetKeyDown(KeyCode.E))
         {
-            StartDialogue();
-        }
-        // Appuie encore sur E pour passer au texte suivant
-        else if (Input.GetKeyDown(KeyCode.E) && isDialogueActive)
-        {
-            NextLine();
+            if (!isDialogueActive)
+            {
+                StartDialogue();
+            }
+            else
+            {
+                NextLine();
+            }
         }
     }
 
     void StartDialogue()
     {
         isDialogueActive = true;
+
         dialoguePanel.SetActive(true);
 
         currentLine = 0;
@@ -57,6 +62,26 @@ public class DialogueSystem : MonoBehaviour
     void EndDialogue()
     {
         isDialogueActive = false;
+
         dialoguePanel.SetActive(false);
+    }
+
+    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            playerNearby = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            playerNearby = false;
+
+            EndDialogue();
+        }
     }
 }
