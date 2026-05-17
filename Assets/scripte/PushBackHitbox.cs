@@ -45,16 +45,16 @@ public class PushBackHitbox : MonoBehaviour
 
             if (enemyRb != null)
             {
-                // Direction du push
+                
                 Vector2 direction = (collision.transform.position - transform.position).normalized;
 
-                // Push l'ennemi
+                
                 enemyRb.AddForce(direction * pushForce, ForceMode2D.Impulse);
 
-                // Récupère le script de vie
+                
                 EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
 
-                // Inflige 1 dégât
+                
                 if (enemyHealth != null)
                 {
                     enemyHealth.TakeDamage(1);
